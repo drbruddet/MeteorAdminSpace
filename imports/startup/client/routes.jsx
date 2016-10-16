@@ -9,6 +9,7 @@ import AdminMainContainer from '../../ui/containers/AdminMainContainer.jsx'
 
 // pages
 import LoginPage from '../../ui/pages/LoginPage.jsx'
+import NotFoundPage from '../../ui/pages/NotFoundPage.jsx'
 
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
@@ -19,5 +20,6 @@ export const renderRoutes = () => (
 		<Route path="/admin" component={AdminAppContainer}>
       		<IndexRoute component={AdminMainContainer}/>
     	</Route>
+    	<Route path="*" component={NotFoundPage}/>
 	</Router>
 );
