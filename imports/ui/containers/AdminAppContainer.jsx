@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 
+import AdminHeader from '../layouts/AdminHeader.jsx'
+
+import '../pages/admin/admin.styl'
+
 class AdminAppContainer extends Component {
 	constructor(props){
 		super(props);
@@ -32,9 +36,8 @@ class AdminAppContainer extends Component {
 	
 	render(){
 		return (
-			<div>
-				<p>Ici le menu admin une fois connecté</p>
-				<a href="#" onClick={this.logout}>Logout</a>
+			<div className="app-container">
+				<AdminHeader clickLogout={this.logout}/>
 				{this.props.children}
 			</div>
 		);
