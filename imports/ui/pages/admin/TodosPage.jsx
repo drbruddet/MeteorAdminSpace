@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data'
-import { Checkbox, PageHeader, ListGroup } from 'react-bootstrap'
+import { Checkbox, PageHeader, ListGroup, Table, Badge } from 'react-bootstrap'
 
 import { Tasks } from '../../../api/tasks/tasks.js';
 
@@ -43,7 +43,7 @@ class TodosPage extends Component {
 	render() {
 		return (
 			<div className="container">
-				<PageHeader>Todo List <small>({this.props.incompleteCount})</small></PageHeader>
+				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
 
 				<Checkbox
 					readOnly
@@ -55,9 +55,11 @@ class TodosPage extends Component {
 
 	 			{ this.props.currentUser ? <TaskForm /> : '' }
 
-				<ListGroup>
-					{this.renderTasks()}
-				</ListGroup>
+				<Table responsive condensed>
+					<tbody>
+						{this.renderTasks()}
+					</tbody>
+				</Table>
 			</div>
 		);
 	}
