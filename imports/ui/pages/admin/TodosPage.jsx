@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data'
-import { Checkbox, PageHeader, ListGroup, Table, Badge } from 'react-bootstrap'
+import { Checkbox, PageHeader, ListGroup, Table, Badge, Panel } from 'react-bootstrap'
 
 import { Tasks } from '../../../api/tasks/tasks.js';
 
@@ -45,15 +45,18 @@ class TodosPage extends Component {
 			<div className="container">
 				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
 
+				<Panel>
+					{ this.props.currentUser ? <TaskForm /> : '' }
+				</Panel>
+
 				<Checkbox
 					readOnly
+					className="sortCheckbox"
 					checked={this.state.hideCompleted}
 					onClick={this.toggleHideCompleted.bind(this)}
 				>
 				Hide Completed Tasks
 				</Checkbox>
-
-	 			{ this.props.currentUser ? <TaskForm /> : '' }
 
 				<Table responsive condensed>
 					<tbody>
