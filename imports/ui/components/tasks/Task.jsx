@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Checkbox, ListGroupItem, Button } from 'react-bootstrap'
 
-import { Tasks } from '../../../api/tasks/tasks.js';
+import { Tasks } from '../../../api/tasks/tasks.js'
+
+import './Task.styl'
 
 const proTypes = {
 	task: PropTypes.object.isRequired,

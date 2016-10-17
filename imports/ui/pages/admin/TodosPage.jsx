@@ -18,6 +18,7 @@ class TodosPage extends Component {
 
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			hideCompleted: false,
 		};
