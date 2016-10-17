@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
 class AdminHeader extends Component {
 
@@ -18,11 +18,15 @@ class AdminHeader extends Component {
 					</Navbar.Header>
 					<Navbar.Collapse>
 						<Nav>
-							<LinkContainer to="/admin">
+							<IndexLinkContainer to="/admin">
 								<NavItem>Home</NavItem>
+							</IndexLinkContainer>
+							<LinkContainer to="/admin/budget">
+								<NavItem>Budget</NavItem>
 							</LinkContainer>
-							<NavItem href="#">Budget</NavItem>
-							<NavItem href="#">Todos</NavItem>
+							<LinkContainer to="/admin/tasks">
+								<NavItem>Todos</NavItem>
+							</LinkContainer>
 							<NavItem href="#">Notes</NavItem>
 						</Nav>
 						<Nav pullRight>

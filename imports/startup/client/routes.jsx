@@ -6,10 +6,12 @@ import AppContainer from '../../ui/containers/AppContainer.jsx'
 import MainContainer from '../../ui/containers/MainContainer.jsx'
 import AdminAppContainer from '../../ui/containers/AdminAppContainer.jsx'
 import AdminMainContainer from '../../ui/containers/AdminMainContainer.jsx'
+import TasksContainer from '../../ui/containers/TasksContainer.jsx'
 
 // pages
 import LoginPage from '../../ui/pages/LoginPage.jsx'
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx'
+import BudgetPage from '../../ui/pages/admin/BudgetPage.jsx'
 
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
@@ -19,6 +21,8 @@ export const renderRoutes = () => (
     	</Route>
 		<Route path="/admin" component={AdminAppContainer}>
       		<IndexRoute component={AdminMainContainer}/>
+      		<Route path="budget" component={BudgetPage}/>
+          <Route path="tasks" component={TasksContainer}/>
     	</Route>
     	<Route path="*" component={NotFoundPage}/>
 	</Router>
