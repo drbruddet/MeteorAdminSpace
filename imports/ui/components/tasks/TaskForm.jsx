@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
 
-
 import { Tasks } from '../../../api/tasks/tasks.js';
+
+const proTypes = {
+	listId: PropTypes.string.isRequired,
+};
 
 class TaskForm extends Component {
 
@@ -14,7 +17,7 @@ class TaskForm extends Component {
  		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
  		const priority = ReactDOM.findDOMNode(this.refs.priorityInput).value.trim();
  
- 		Meteor.call('tasks.insert', text, priority);
+ 		Meteor.call('tasks.insert', text, priority, this.props.listId);
  
 		ReactDOM.findDOMNode(this.refs.textInput).value = '';
 		ReactDOM.findDOMNode(this.refs.priorityInput).value = 'normal';
@@ -43,5 +46,7 @@ class TaskForm extends Component {
 		);
 	}
 }
+
+TaskForm.propTypes = proTypes;
  
 export default TaskForm;

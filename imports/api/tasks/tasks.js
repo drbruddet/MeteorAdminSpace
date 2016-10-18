@@ -12,9 +12,10 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 
-	'tasks.insert'(text, priority) {
+	'tasks.insert'(text, priority, listId) {
 		check(text, String);
 		check(priority, String);
+		check(listId, String);
 
 		try {
 			if (!this.userId)
@@ -25,6 +26,7 @@ Meteor.methods({
 				priority,
 				createdAt: new Date(),
 				checked: false,
+				listId: listId,
 				owner: this.userId
 			});
 		} catch (exception) {
@@ -93,6 +95,9 @@ Schemas.Tasks = new SimpleSchema({
         type: String,
         label: "Owner ID"
     },
+    listId: {
+		type: String,
+	},
     checked: {
     	type: Boolean,
     	label: "Task is Done"
