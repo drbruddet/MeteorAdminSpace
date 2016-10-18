@@ -41,7 +41,7 @@ class Task extends Component {
 						onClick={this.toggleChecked.bind(this)}
 					/>
 				</td>
-				<td className="vert-align col-sm-2 col-md-2 col-lg-1">
+				<td className="vert-align col-sm-1 col-md-1 col-lg-1">
 					<Label bsStyle={this.priorityLabel()}>
 						{this.props.task.priority}
 					</Label>

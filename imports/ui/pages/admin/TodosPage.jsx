@@ -44,10 +44,8 @@ class TodosPage extends Component {
 		return (
 			<div className="container">
 				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
-
-				<Panel>
-					{ this.props.currentUser ? <TaskForm /> : '' }
-				</Panel>
+				
+				<Panel>{this.props.currentUser ? <TaskForm /> : ''}</Panel>
 
 				<Checkbox
 					readOnly

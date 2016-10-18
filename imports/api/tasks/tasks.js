@@ -15,31 +15,48 @@ Meteor.methods({
 	'tasks.insert'(text, priority) {
 		check(text, String);
 		check(priority, String);
- 
-		if (! this.userId) {
-			throw new Meteor.Error('not-authorized');
+
+		try {
+			if (!this.userId)
+				throw new Meteor.Error('500', 'Must be logged in to add new tasks.');
+			
+			Tasks.insert({
+				text,
+				priority,
+				createdAt: new Date(),
+				checked: false,
+				owner: this.userId
+			});
+		} catch (exception) {
+			throw new Meteor.Error('500', exception.message);
 		}
- 
-		Tasks.insert({
-			text,
-			priority,
-			createdAt: new Date(),
-			owner: this.userId,
-			username: Meteor.users.findOne(this.userId).username,
-		});
 	},
 
 	'tasks.remove'(taskId) {
 		check(taskId, String);
  
-		Tasks.remove(taskId);
+		try {
+			const task = Tasks.findOne(taskId);
+			if (task.owner !== this.userId)
+				throw new Meteor.Error('500', 'Must own the task to delete.');
+			Tasks.remove(taskId);
+		} catch (exception) {
+			throw new Meteor.Error('500', exception.message);
+		}
 	},
 
 	'tasks.setChecked'(taskId, setChecked) {
 		check(taskId, String);
 		check(setChecked, Boolean);
  
-		Tasks.update(taskId, { $set: { checked: setChecked } });
+		try {
+			const task = Tasks.findOne(taskId);
+			if (task.owner !== this.userId)
+				throw new Meteor.Error('500', 'Must own the task to do this action.');
+			Tasks.update(taskId, { $set: { checked: setChecked} });
+		} catch (exception) {
+			throw new Meteor.Error('500', exception.message);
+		}
 	},
 
 });
@@ -55,3 +72,30 @@ Tasks.deny({
   update() { return true; },
   remove() { return true; }
 });
+
+var Schemas = {};
+
+Schemas.Tasks = new SimpleSchema({
+    text: {
+        type: String,
+        label: "Text",
+        max: 300
+    },
+    priority: {
+        type: String,
+        label: "Priority"
+    },
+    createdAt: {
+        type: Date,
+        label: "Creation Date"
+    },
+    owner: {
+        type: String,
+        label: "Owner ID"
+    },
+    checked: {
+    	type: Boolean,
+    	label: "Task is Done"
+    }
+});
+Tasks.attachSchema(Schemas.Tasks);
