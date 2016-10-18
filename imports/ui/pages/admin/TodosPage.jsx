@@ -48,9 +48,6 @@ class TodosPage extends Component {
 	}
 
 	renderTasks() {
-		if (!this.state.listSelected) {
-			return "Please select a list ...";
-		}
 		let rows = [];
 		let filteredTasks = this.props.tasks;
 		let selectedListId = this.state.listSelected;
@@ -81,26 +78,40 @@ class TodosPage extends Component {
 					</Panel>
 				</Col>
 
-				<Col xs={12} md={9} lg={9}>
-					<Panel>
-						{this.props.currentUser ? <TaskForm listId={this.state.listSelected} /> : ''}
-					</Panel>
+				{(() => {
+					if (this.state.listSelected) {
+						return (
+							<Col xs={12} md={9} lg={9}>
+								<Panel>
+									{this.props.currentUser ? <TaskForm listId={this.state.listSelected} /> : ''}
+								</Panel>
 
-					<Checkbox
-						readOnly
-						className="sortCheckbox"
-						checked={this.state.hideCompleted}
-						onClick={this.toggleHideCompleted.bind(this)}
-					>
-					Hide Completed Tasks
-					</Checkbox>
+								<Checkbox
+									readOnly
+									className="sortCheckbox"
+									checked={this.state.hideCompleted}
+									onClick={this.toggleHideCompleted.bind(this)}
+								>
+									Hide Completed Tasks
+								</Checkbox>
 
-					<Table responsive condensed>
-						<tbody>
-							{this.renderTasks()}
-						</tbody>
-					</Table>
-				</Col>
+								<Table responsive condensed>
+									<tbody>
+										{this.renderTasks()}
+									</tbody>
+								</Table>
+							</Col>
+						);
+					} else {
+						return (
+							<Col xs={12} md={9} lg={9}>
+								<Panel header="Tips?" bsStyle="info">
+									Please Select a list ..
+								</Panel>
+							</Col>
+						);
+					}
+				})()}
 			</div>
 		);
 	}

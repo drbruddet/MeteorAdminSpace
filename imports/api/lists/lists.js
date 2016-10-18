@@ -38,7 +38,7 @@ Meteor.methods({
 			const list = Lists.findOne(listId);
 			if (list.owner !== this.userId)
 				throw new Meteor.Error('500', 'Must own the list to delete.');
-			//Tasks.remove({"listId": listId});
+			Tasks.remove({"listId": listId});
 			Lists.remove(listId);
 		} catch (exception) {
 			throw new Meteor.Error('500', exception.message);

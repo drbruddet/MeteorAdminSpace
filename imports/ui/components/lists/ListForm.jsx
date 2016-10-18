@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
 
-
 import { Tasks } from '../../../api/lists/lists.js';
 
 class ListForm extends Component {
@@ -14,7 +13,7 @@ class ListForm extends Component {
  		const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
  
  		Meteor.call('lists.insert', name);
- 
+
 		ReactDOM.findDOMNode(this.refs.nameInput).value = '';
 	}
 
