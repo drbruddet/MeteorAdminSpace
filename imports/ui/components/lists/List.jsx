@@ -20,7 +20,7 @@ class List extends Component {
 				{this.props.list.name}
 				<span className="pushRight">
 					<Glyphicon 
-						onClick={this.deleteThisList.bind(this)}
+						onClick={() => this.deleteThisList()}
 						glyph="glyphicon glyphicon-remove"
 					/>
 				</span>

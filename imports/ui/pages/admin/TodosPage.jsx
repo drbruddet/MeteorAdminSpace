@@ -8,8 +8,7 @@ import { Tasks } from '../../../api/tasks/tasks.js';
 
 import ListForm from '../../components/lists/ListForm.jsx';
 import List from '../../components/lists/List.jsx';
-import TaskForm from '../../components/tasks/TaskForm.jsx';
-import Task from '../../components/tasks/Task.jsx';
+import TaskList from '../../components/tasks/TaskList.jsx';
 
 const proTypes = {
 	lists: PropTypes.array.isRequired,
@@ -22,15 +21,7 @@ class TodosPage extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			hideCompleted: false,
-			listSelected: ""
-		};
-	}
-
-	toggleHideCompleted() {
-		this.setState({ hideCompleted: !this.state.hideCompleted });
+		this.state = { listSelected: "" };
 	}
 
 	selectList(listId) {
@@ -40,28 +31,11 @@ class TodosPage extends Component {
 	renderLists() {
 		return this.props.lists.map((list) => (
 			<List 
-				selectList={this.selectList.bind(this, list._id)}
+				selectList={() => this.selectList(list._id)}
 				key={list._id}
 				list={list}
 			/>
 		));
-	}
-
-	renderTasks() {
-		let rows = [];
-		let filteredTasks = this.props.tasks;
-		let selectedListId = this.state.listSelected;
-		if (this.state.hideCompleted) {
-			filteredTasks = filteredTasks.filter(task => !task.checked);
-		}
-
-		filteredTasks.forEach(function(task) {
-			if (selectedListId === task.listId) {
-				rows.push(<Task key={task._id} task={task} />);
-			}
-		});
-
-		return rows;
 	}
 
 	render() {
@@ -70,7 +44,7 @@ class TodosPage extends Component {
 				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
 				
 				<Col xs={12} md={3} lg={3}>
-					{this.props.currentUser ? <ListForm /> : ''}
+					<ListForm />
 					<ListGroup>
 						{this.renderLists()}
 					</ListGroup>
@@ -79,26 +53,11 @@ class TodosPage extends Component {
 				{(() => {
 					if (this.state.listSelected) {
 						return (
-							<Col xs={12} md={9} lg={9}>
-								{this.props.currentUser ? 
-									<TaskForm listId={this.state.listSelected} /> 
-								: ''}
-
-								<Checkbox
-									readOnly
-									className="sortCheckbox"
-									checked={this.state.hideCompleted}
-									onClick={this.toggleHideCompleted.bind(this)}
-								>
-									Hide Completed Tasks
-								</Checkbox>
-
-								<Table responsive condensed>
-									<tbody>
-										{this.renderTasks()}
-									</tbody>
-								</Table>
-							</Col>
+							<TaskList 
+								currentUser={this.props.currentUser}
+								tasks={this.props.tasks}
+								listSelected={this.state.listSelected}
+							/>
 						);
 					} else {
 						return (

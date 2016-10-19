@@ -38,7 +38,7 @@ class Task extends Component {
 					<Checkbox
 						readOnly
 						checked={this.props.task.checked}
-						onClick={this.toggleChecked.bind(this)}
+						onClick={() => this.toggleChecked()}
 					/>
 				</td>
 				<td className="vert-align col-sm-1 col-md-1 col-lg-1">
@@ -50,7 +50,7 @@ class Task extends Component {
 					{this.props.task.text}
 				</td>
 				<td className="vert-align col-sm-2 col-md-2 col-lg-1">
-					<Button bsStyle="danger" onClick={this.deleteThisTask.bind(this)}>
+					<Button bsStyle="danger" onClick={() => this.deleteThisTask()}>
 						<Glyphicon glyph="glyphicon glyphicon-remove" />
 					</Button>
 				</td>
