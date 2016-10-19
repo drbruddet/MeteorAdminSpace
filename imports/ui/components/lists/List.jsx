@@ -6,6 +6,7 @@ import { Lists } from '../../../api/lists/lists.js'
 
 const proTypes = {
 	list: PropTypes.object.isRequired,
+	selectedItemId: PropTypes.string.isRequired,
 };
 
 class List extends Component {
@@ -16,7 +17,10 @@ class List extends Component {
 
 	render() {
 		return (
-			<ListGroupItem onClick={this.props.selectList}>
+			<ListGroupItem 
+				className={(this.props.list._id == this.props.selectedItemId) ? 'active':''} 
+				onClick={this.props.selectList}
+			>
 				{this.props.list.name}
 				<span className="pushRight">
 					<Glyphicon 

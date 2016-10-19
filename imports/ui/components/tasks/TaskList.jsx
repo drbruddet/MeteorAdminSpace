@@ -11,7 +11,6 @@ import TaskForm from '../../components/tasks/TaskForm.jsx';
 const proTypes = {
 	tasks: PropTypes.array.isRequired,
 	listSelected: PropTypes.string.isRequired,
-	currentUser: PropTypes.object,
 }
 
 class TaskList extends Component {

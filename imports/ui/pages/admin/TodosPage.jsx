@@ -31,6 +31,7 @@ class TodosPage extends Component {
 	renderLists() {
 		return this.props.lists.map((list) => (
 			<List 
+				selectedItemId={this.state.listSelected}
 				selectList={() => this.selectList(list._id)}
 				key={list._id}
 				list={list}
@@ -53,11 +54,7 @@ class TodosPage extends Component {
 				{(() => {
 					if (this.state.listSelected) {
 						return (
-							<TaskList 
-								currentUser={this.props.currentUser}
-								tasks={this.props.tasks}
-								listSelected={this.state.listSelected}
-							/>
+							<TaskList tasks={this.props.tasks} listSelected={this.state.listSelected} />
 						);
 					} else {
 						return (
