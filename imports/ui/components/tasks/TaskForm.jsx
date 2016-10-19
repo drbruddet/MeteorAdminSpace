@@ -5,7 +5,7 @@ import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
 
 import { Tasks } from '../../../api/tasks/tasks.js';
 
-const proTypes = {
+const propTypes = {
 	listId: PropTypes.string.isRequired,
 };
 
@@ -55,6 +55,6 @@ class TaskForm extends Component {
 	}
 }
 
-TaskForm.propTypes = proTypes;
+TaskForm.propTypes = propTypes;
  
 export default TaskForm;

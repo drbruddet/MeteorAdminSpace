@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import {ListGroupItem, Button, Glyphicon, Label } from 'react-bootstrap'
+import {ListGroupItem, Glyphicon, Label } from 'react-bootstrap'
 
 import { Lists } from '../../../api/lists/lists.js'
 
-const proTypes = {
+const propTypes = {
 	list: PropTypes.object.isRequired,
 	selectedItemId: PropTypes.string.isRequired,
+	countPendingTasks: PropTypes.number.isRequired,
 };
 
 class List extends Component {
@@ -22,17 +23,17 @@ class List extends Component {
 				onClick={this.props.selectList}
 			>
 				{this.props.list.name}
-				<span className="pushRight">
-					<Glyphicon 
-						onClick={() => this.deleteThisList()}
-						glyph="glyphicon glyphicon-remove"
-					/>
-				</span>
+				<Label className="pushRight label-counter">{this.props.countPendingTasks}</Label>
+				<Glyphicon className="pushRight red"
+					onClick={() => this.deleteThisList()}
+					glyph="glyphicon glyphicon-remove"
+				/>
+				
 			</ListGroupItem>
 		);
 	}
 }
  
-List.propTypes = proTypes;
+List.propTypes = propTypes;
 
 export default List;

@@ -6,7 +6,7 @@ import { Tasks } from '../../../api/tasks/tasks.js'
 
 import './Task.styl'
 
-const proTypes = {
+const propTypes = {
 	task: PropTypes.object.isRequired,
 };
 
@@ -59,6 +59,6 @@ class Task extends Component {
 	}
 }
  
-Task.propTypes = proTypes;
+Task.propTypes = propTypes;
 
 export default Task;

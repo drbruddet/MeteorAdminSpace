@@ -8,7 +8,7 @@ import { Tasks } from '../../../api/tasks/tasks.js';
 import Task from '../../components/tasks/Task.jsx';
 import TaskForm from '../../components/tasks/TaskForm.jsx';
 
-const proTypes = {
+const propTypes = {
 	tasks: PropTypes.array.isRequired,
 	listSelected: PropTypes.string.isRequired,
 }
@@ -31,13 +31,11 @@ class TaskList extends Component {
 		if (this.state.hideCompleted) {
 			filteredTasks = filteredTasks.filter(task => !task.checked);
 		}
-
 		filteredTasks.forEach(function(task) {
 			if (selectedListId === task.listId) {
 				rows.push(<Task key={task._id} task={task} />);
 			}
 		});
-
 		return rows;
 	}
 
@@ -64,6 +62,6 @@ class TaskList extends Component {
 	}
 }
 
-TaskList.PropTypes = proTypes;
+TaskList.PropTypes = propTypes;
 
 export default TaskList;

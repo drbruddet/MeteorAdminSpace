@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 
+const propTypes = {
+	username: React.PropTypes.string
+}
+
 class Dashboard extends Component {
 
 	constructor(props) {
@@ -25,8 +29,6 @@ class Dashboard extends Component {
 	}
 }
 
-Dashboard.PropTypes = {
-	username: React.PropTypes.string
-}
+Dashboard.PropTypes = propTypes;
 
 export default Dashboard;

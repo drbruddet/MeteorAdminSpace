@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
@@ -11,7 +11,7 @@ class ListForm extends Component {
 		event.preventDefault();
  
  		const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
- 
+
  		Meteor.call('lists.insert', name);
 
 		ReactDOM.findDOMNode(this.refs.nameInput).value = '';

@@ -10,7 +10,7 @@ import ListForm from '../../components/lists/ListForm.jsx';
 import List from '../../components/lists/List.jsx';
 import TaskList from '../../components/tasks/TaskList.jsx';
 
-const proTypes = {
+const propTypes = {
 	lists: PropTypes.array.isRequired,
 	tasks: PropTypes.array.isRequired,
 	incompleteCount: PropTypes.number.isRequired,
@@ -21,11 +21,21 @@ class TodosPage extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { listSelected: "" };
+		this.state = {
+			listSelected: "",
+		};
 	}
 
 	selectList(listId) {
 		this.setState({ listSelected: listId });
+	}
+
+	countPendingTasks(listId) {
+		let i = 0;
+		this.props.tasks.forEach(function(task) {
+			if (listId === task.listId && !task.checked) i++
+		});
+		return (i);
 	}
 
 	renderLists() {
@@ -35,6 +45,7 @@ class TodosPage extends Component {
 				selectList={() => this.selectList(list._id)}
 				key={list._id}
 				list={list}
+				countPendingTasks={this.countPendingTasks(list._id)}
 			/>
 		));
 	}
@@ -71,6 +82,6 @@ class TodosPage extends Component {
 	}
 }
 
-TodosPage.PropTypes = proTypes;
+TodosPage.PropTypes = propTypes;
 
 export default TodosPage;
