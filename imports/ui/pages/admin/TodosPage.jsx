@@ -70,21 +70,19 @@ class TodosPage extends Component {
 				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
 				
 				<Col xs={12} md={3} lg={3}>
-					<Panel>
-						{this.props.currentUser ? <ListForm /> : ''}
-						<ListGroup>
-							{this.renderLists()}
-						</ListGroup>
-					</Panel>
+					{this.props.currentUser ? <ListForm /> : ''}
+					<ListGroup>
+						{this.renderLists()}
+					</ListGroup>
 				</Col>
 
 				{(() => {
 					if (this.state.listSelected) {
 						return (
 							<Col xs={12} md={9} lg={9}>
-								<Panel>
-									{this.props.currentUser ? <TaskForm listId={this.state.listSelected} /> : ''}
-								</Panel>
+								{this.props.currentUser ? 
+									<TaskForm listId={this.state.listSelected} /> 
+								: ''}
 
 								<Checkbox
 									readOnly

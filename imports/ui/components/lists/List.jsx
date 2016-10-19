@@ -19,7 +19,10 @@ class List extends Component {
 			<ListGroupItem onClick={this.props.selectList}>
 				{this.props.list.name}
 				<span className="pushRight">
-					<Glyphicon onClick={this.deleteThisList.bind(this)} glyph="glyphicon glyphicon-remove" />
+					<Glyphicon 
+						onClick={this.deleteThisList.bind(this)}
+						glyph="glyphicon glyphicon-remove"
+					/>
 				</span>
 			</ListGroupItem>
 		);

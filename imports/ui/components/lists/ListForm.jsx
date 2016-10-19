@@ -19,8 +19,8 @@ class ListForm extends Component {
 
 	render() {
 		return (
-			<Form inline onSubmit={this.handleSubmit.bind(this)} >
-				<FormGroup>
+			<Form bsClass="col-xs-12" onSubmit={this.handleSubmit.bind(this)} >
+				<FormGroup bsClass="form-group">
 					<FormControl
 						type="text"
 						ref="nameInput"
