@@ -54,7 +54,7 @@ class TodosPage extends Component {
 	render() {
 		return (
 			<div className="container">
-				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
+				<PageHeader>Todo List <Badge className="megaBadges">{this.props.incompleteCount}</Badge></PageHeader>
 				
 				<Col xs={12} md={3} lg={3}>
 					<ListForm listSelected={this.state.listSelected} onSubmit={this.selectList.bind(this)}/>

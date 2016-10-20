@@ -49,8 +49,8 @@ class Task extends Component {
 				<td className="vert-align">
 					{this.props.task.text}
 				</td>
-				<td className="vert-align col-sm-2 col-md-2 col-lg-1">
-					<Button bsStyle="danger" onClick={() => this.deleteThisTask()}>
+				<td className="vert-align col-sm-2 col-md-2 col-lg-1 text-right">
+					<Button bsStyle="danger" className="btn-sm" onClick={() => this.deleteThisTask()}>
 						<Glyphicon glyph="glyphicon glyphicon-remove" />
 					</Button>
 				</td>
