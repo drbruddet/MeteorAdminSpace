@@ -22,7 +22,11 @@ class TodosPage extends Component {
 
 	selectList(listId) {
 		this.setState({ listSelected: listId });
-		browserHistory.push('/admin/todos/' + listId);
+		console.log(listId);
+		if (listId)
+			browserHistory.push('/admin/todos/' + listId);
+		else
+			browserHistory.push('/admin/todos/');
 	}
 
 	render() {

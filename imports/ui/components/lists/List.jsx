@@ -11,14 +11,19 @@ const propTypes = {
 class List extends Component {
 
 	deleteThisList() {
-		Meteor.call('lists.remove', this.props.list._id);
+		Meteor.call('lists.remove', this.props.list._id, (err) => {
+ 			if (!err) {
+ 				(this.props.selectedItemId === this.props.list._id) ? 
+ 					this.props.selectList("") : this.props.selectList(this.props.selectedItemId) 
+ 			}	
+ 		});
 	}
 
 	render() {
 		return (
 			<ListGroupItem 
 				className={(this.props.list._id == this.props.selectedItemId) ? 'active' : ''} 
-				onClick={this.props.selectList}
+				onClick={() => this.props.selectList(this.props.list._id)}
 			>
 				{this.props.list.name}
 				<Label className="pushRight label-counter">{this.props.countPendingTasks}</Label>

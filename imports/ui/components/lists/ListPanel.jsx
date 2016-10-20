@@ -12,6 +12,15 @@ const propTypes = {
 
 class ListPanel extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = { editing: null };
+	}
+
+	toggleHideCompleted() {
+		this.setState({ hideCompleted: !this.state.hideCompleted });
+	}
+
 	countPendingTasks(listId) {
 		let nbTask = 0;
 		this.props.tasks.forEach((task) => {
@@ -24,7 +33,7 @@ class ListPanel extends Component {
 		return this.props.lists.map((list) => (
 			<List 
 				selectedItemId ={this.props.listSelected}
-				selectList = {() => this.props.selectList(list._id)}
+				selectList = {this.props.selectList}
 				key = {list._id}
 				list = {list}
 				countPendingTasks = {this.countPendingTasks(list._id)}
