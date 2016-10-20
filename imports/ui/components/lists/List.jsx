@@ -26,7 +26,7 @@ class List extends Component {
 				onClick={() => this.props.selectList(this.props.list._id)}
 			>
 				{this.props.list.name}
-				<Label className="pushRight label-counter">{this.props.countPendingTasks}</Label>
+				<Label bsStyle="info" className="pushRight label-counter">{this.props.countPendingTasks}</Label>
 				<Glyphicon className="pushRight red"
 					onClick={() => this.deleteThisList()}
 					glyph="glyphicon glyphicon-remove"
