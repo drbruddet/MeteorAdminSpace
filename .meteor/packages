@@ -24,3 +24,4 @@ twbs:bootstrap
 stylus
 blaze-html-templates
 aldeed:collection2
+momentjs:moment
