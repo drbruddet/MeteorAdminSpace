@@ -24,6 +24,7 @@ class TodosPage extends Component {
 		this.state = {
 			listSelected: "",
 		};
+		this.selectList = this.selectList.bind(this);
 	}
 
 	selectList(listId) {
@@ -57,7 +58,7 @@ class TodosPage extends Component {
 				<PageHeader>Todo List <Badge className="megaBadges">{this.props.incompleteCount}</Badge></PageHeader>
 				
 				<Col xs={12} md={3} lg={3}>
-					<ListForm listSelected={this.state.listSelected} onSubmit={this.selectList.bind(this)}/>
+					<ListForm onSubmit={this.selectList}/>
 					<ListGroup>
 						{this.renderLists()}
 					</ListGroup>
