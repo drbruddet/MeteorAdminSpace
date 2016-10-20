@@ -12,6 +12,7 @@ import TasksContainer from '../../ui/containers/TasksContainer.jsx'
 import LoginPage from '../../ui/pages/LoginPage.jsx'
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx'
 import BudgetPage from '../../ui/pages/admin/BudgetPage.jsx'
+import TodosPage from '../../ui/pages/admin/TodosPage.jsx'
 
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
@@ -22,7 +23,9 @@ export const renderRoutes = () => (
 		<Route path="/admin" component={AdminAppContainer}>
       		<IndexRoute component={AdminMainContainer}/>
       		<Route path="budget" component={BudgetPage}/>
-          <Route path="tasks" component={TasksContainer}/>
+          <Route path="todos" component={TasksContainer}>
+            <Route path=":listId" component={TodosPage}/>
+          </Route>
     	</Route>
     	<Route path="*" component={NotFoundPage}/>
 	</Router>

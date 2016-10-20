@@ -24,7 +24,7 @@ class AdminHeader extends Component {
 							<LinkContainer to="/admin/budget">
 								<NavItem>Budget</NavItem>
 							</LinkContainer>
-							<LinkContainer to="/admin/tasks">
+							<LinkContainer to="/admin/todos">
 								<NavItem>Todos</NavItem>
 							</LinkContainer>
 							<NavItem href="#">Notes</NavItem>

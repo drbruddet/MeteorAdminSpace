@@ -21,7 +21,7 @@ Meteor.methods({
 			if (!this.userId)
 				throw new Meteor.Error('500', 'Must be logged in to add new lists.');
 			
-			Lists.insert({
+			return Lists.insert({
 				name,
 				createdAt: new Date(),
 				owner: this.userId

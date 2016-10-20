@@ -11,9 +11,9 @@ class ListForm extends Component {
 		event.preventDefault();
  
  		const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
-
- 		Meteor.call('lists.insert', name);
-
+ 		Meteor.call('lists.insert', name, (err, listId) => {
+ 			console.log("in method insert = " + listId);
+ 		});
 		ReactDOM.findDOMNode(this.refs.nameInput).value = '';
 	}
 

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom';
-import { createContainer } from 'meteor/react-meteor-data'
+import { browserHistory } from 'react-router'
 import { Checkbox, PageHeader, ListGroup, Table, Badge, Panel, Col } from 'react-bootstrap'
 
 import { Lists } from '../../../api/lists/lists.js';
@@ -28,14 +28,15 @@ class TodosPage extends Component {
 
 	selectList(listId) {
 		this.setState({ listSelected: listId });
+		browserHistory.push('/admin/todos/' + listId);
 	}
 
 	countPendingTasks(listId) {
-		let i = 0;
+		let nbTask = 0;
 		this.props.tasks.forEach(function(task) {
-			if (listId === task.listId && !task.checked) i++
+			if (listId === task.listId && !task.checked) nbTask++
 		});
-		return (i);
+		return (nbTask);
 	}
 
 	renderLists() {
@@ -56,7 +57,7 @@ class TodosPage extends Component {
 				<PageHeader>Todo List <Badge>{this.props.incompleteCount}</Badge></PageHeader>
 				
 				<Col xs={12} md={3} lg={3}>
-					<ListForm />
+					<ListForm listSelected={this.state.listSelected} onSubmit={this.selectList.bind(this)}/>
 					<ListGroup>
 						{this.renderLists()}
 					</ListGroup>
