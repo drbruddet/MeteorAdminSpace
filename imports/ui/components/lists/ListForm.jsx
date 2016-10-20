@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
-
-import { Tasks } from '../../../api/lists/lists.js';
+import { Form, FormGroup, FormControl } from 'react-bootstrap'
 
 class ListForm extends Component {
 
@@ -13,7 +11,7 @@ class ListForm extends Component {
  		const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
  		Meteor.call('lists.insert', name, (err, listId) => {
  			if (!err) {
- 				this.props.onSubmit(listId);
+ 				this.props.selectList(listId);
  			}	
  		});
 		ReactDOM.findDOMNode(this.refs.nameInput).value = '';

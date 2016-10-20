@@ -5,8 +5,6 @@ import Dashboard from '../pages/admin/Dashboard.jsx'
 export default AdminMainContainer = createContainer(({params}) => {
 	
 	const currentUser = Meteor.user();
+	return { currentUser };
 
-	return {
-		currentUser,
-	};
 }, Dashboard);

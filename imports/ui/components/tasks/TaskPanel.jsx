@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom';
-import { createContainer } from 'meteor/react-meteor-data'
-import { Checkbox, PageHeader, ListGroup, Table, Badge, Panel, Col } from 'react-bootstrap'
-
-import { Tasks } from '../../../api/tasks/tasks.js';
+import { Checkbox, Table, Col } from 'react-bootstrap'
 
 import Task from '../../components/tasks/Task.jsx';
 import TaskForm from '../../components/tasks/TaskForm.jsx';
@@ -13,7 +10,7 @@ const propTypes = {
 	listSelected: PropTypes.string.isRequired,
 }
 
-class TaskList extends Component {
+class TaskPanel extends Component {
 
 	constructor(props) {
 		super(props);
@@ -49,7 +46,7 @@ class TaskList extends Component {
 					className="sortCheckbox"
 					checked={this.state.hideCompleted}
 					onClick={() => this.toggleHideCompleted()}
-				> Hide Completed Tasks
+					> Hide Completed Tasks
 				</Checkbox>
 
 				<Table responsive condensed>
@@ -62,6 +59,6 @@ class TaskList extends Component {
 	}
 }
 
-TaskList.PropTypes = propTypes;
+TaskPanel.PropTypes = propTypes;
 
-export default TaskList;
+export default TaskPanel;

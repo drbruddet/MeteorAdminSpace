@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { browserHistory, Link } from 'react-router'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
@@ -6,7 +6,6 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 class AdminHeader extends Component {
 
 	render(){
-
 		return (
 			<div>
 				<Navbar fixedTop fluid>

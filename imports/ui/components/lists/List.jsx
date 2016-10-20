@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import {ListGroupItem, Glyphicon, Label } from 'react-bootstrap'
-
-import { Lists } from '../../../api/lists/lists.js'
+import { ListGroupItem, Glyphicon, Label } from 'react-bootstrap'
 
 const propTypes = {
 	list: PropTypes.object.isRequired,
@@ -19,7 +17,7 @@ class List extends Component {
 	render() {
 		return (
 			<ListGroupItem 
-				className={(this.props.list._id == this.props.selectedItemId) ? 'active':''} 
+				className={(this.props.list._id == this.props.selectedItemId) ? 'active' : ''} 
 				onClick={this.props.selectList}
 			>
 				{this.props.list.name}
@@ -28,7 +26,6 @@ class List extends Component {
 					onClick={() => this.deleteThisList()}
 					glyph="glyphicon glyphicon-remove"
 				/>
-				
 			</ListGroupItem>
 		);
 	}
