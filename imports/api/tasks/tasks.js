@@ -47,6 +47,21 @@ Meteor.methods({
 		}
 	},
 
+	'tasks.updateTask'(taskId, text, priority) {
+		check(taskId, String);
+		check(text, String);
+		check(priority, String);
+
+		try {
+			const task = Tasks.findOne(taskId);
+			if (task.owner !== this.userId)
+				throw new Meteor.Error('500', 'Must own the task to update.');
+			return Tasks.update(taskId, {$set: {'text': text, 'priority': priority}});
+		} catch (exception) {
+			throw new Meteor.Error('500', exception.message);
+		}
+	},
+
 	'tasks.setChecked'(taskId, setChecked) {
 		check(taskId, String);
 		check(setChecked, Boolean);

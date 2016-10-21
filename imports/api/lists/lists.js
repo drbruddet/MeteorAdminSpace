@@ -45,6 +45,20 @@ Meteor.methods({
 		}
 	},
 
+	'lists.updateList'(listId, name) {
+		check(listId, String);
+		check(name, String);
+
+		try {
+			const list = Lists.findOne(listId);
+			if (list.owner !== this.userId)
+				throw new Meteor.Error('500', 'Must own the list to update.');
+			Lists.update(listId, {$set: {'name': name}});
+		} catch (exception) {
+			throw new Meteor.Error('500', exception.message);
+		}
+	},
+
 });
 
 Lists.allow({

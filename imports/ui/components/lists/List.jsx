@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { ListGroupItem, Glyphicon, Label } from 'react-bootstrap'
+import ReactDOM from 'react-dom';
+import { ListGroupItem, Glyphicon, Label, FormGroup, FormControl } from 'react-bootstrap'
 
 const propTypes = {
 	list: PropTypes.object.isRequired,
@@ -9,6 +10,32 @@ const propTypes = {
 };
 
 class List extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = { editing: null };
+	}
+
+	toggleEditing() {
+		this.setState({ editing: this.props.list._id });
+	}
+
+	handleEditList(event) {
+		if (event.keyCode === 13) {
+			const listId = this.state.editing;
+			const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
+
+			Meteor.call('lists.updateList', listId, name, (error, response) => {
+				if (!error) {
+					this.setState({ editing: null });
+        		} else {
+        			// Message Task Updated
+        		}
+			});
+		} else if (event.keyCode === 27) {
+			this.setState({ editing: null });
+		}
+	}
 
 	deleteThisList() {
 		Meteor.call('lists.remove', this.props.list._id, (err) => {
@@ -20,19 +47,38 @@ class List extends Component {
 	}
 
 	render() {
-		return (
-			<ListGroupItem 
-				className={(this.props.list._id == this.props.selectedItemId) ? 'active' : ''} 
-				onClick={() => this.props.selectList(this.props.list._id)}
-			>
-				{this.props.list.name}
-				<Label bsStyle="info" className="pushRight label-counter">{this.props.countPendingTasks}</Label>
-				<Glyphicon className="pushRight red"
-					onClick={() => this.deleteThisList()}
-					glyph="glyphicon glyphicon-remove"
-				/>
-			</ListGroupItem>
-		);
+
+		if (this.state.editing === this.props.list._id) {
+			return (
+				<ListGroupItem>
+					<FormGroup bsClass="form-group editField">
+						<FormControl
+							type="text"
+							ref="nameInput"
+							defaultValue={this.props.list.name}
+							onKeyDown={(event) => this.handleEditList(event)}
+						/>
+					</FormGroup>
+				</ListGroupItem>
+			);
+		} else {
+			return (
+				<ListGroupItem className={(this.props.list._id == this.props.selectedItemId) ? 'active' : ''}
+					onClick={() => this.props.selectList(this.props.list._id)}>
+					{this.props.list.name}
+					<Label bsStyle="info" className="pushRight label-counter">{this.props.countPendingTasks}</Label>
+					<Glyphicon className="pushRight red"
+						onClick={() => this.deleteThisList()}
+						glyph="glyphicon glyphicon-remove"
+					/>					
+					<Glyphicon className="pushRight orange"
+						onClick={() => this.toggleEditing()}
+						glyph="glyphicon glyphicon-edit"
+					/>
+				</ListGroupItem>
+			);
+
+		}
 	}
 }
  
