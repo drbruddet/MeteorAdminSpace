@@ -7,6 +7,7 @@ import MainContainer from '../../ui/containers/MainContainer.jsx'
 import AdminAppContainer from '../../ui/containers/AdminAppContainer.jsx'
 import AdminMainContainer from '../../ui/containers/AdminMainContainer.jsx'
 import TasksContainer from '../../ui/containers/TasksContainer.jsx'
+import OperationsContainer from '../../ui/containers/OperationsContainer.jsx'
 
 // pages
 import LoginPage from '../../ui/pages/LoginPage.jsx'
@@ -22,7 +23,9 @@ export const renderRoutes = () => (
     	</Route>
 		<Route path="/admin" component={AdminAppContainer}>
       		<IndexRoute component={AdminMainContainer}/>
-      		<Route path="budget" component={BudgetPage}/>
+      		<Route path="budget" component={OperationsContainer}>
+            <Route component={BudgetPage}/>
+          </Route>
           <Route path="todos" component={TasksContainer}>
             <Route path=":listId" component={TodosPage}/>
           </Route>

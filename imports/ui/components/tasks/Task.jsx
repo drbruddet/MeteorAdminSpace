@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
-import { Checkbox, ButtonGroup, Button, Glyphicon, Label, OverlayTrigger, Popover, FormGroup, FormControl } from 'react-bootstrap'
+import { Checkbox, ButtonGroup, Button, Glyphicon, Label, 
+		OverlayTrigger, Popover, FormGroup, FormControl } from 'react-bootstrap'
 
 import './Task.styl'
 
