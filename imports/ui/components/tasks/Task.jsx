@@ -69,7 +69,7 @@ class Task extends Component {
 		if (this.state.editing === this.props.task._id) {
 			return (
 				<tr>
-            		<td className="inline-my-form fullWidth">
+            		<td className="inline-my-form" colSpan="12">
             			<FormGroup className="form-group col-xs-12 col-sm-7 no-padding">
 							<FormControl
 								className="form-control input-group-lg reg_name col-xs-12 col-sm-10"
