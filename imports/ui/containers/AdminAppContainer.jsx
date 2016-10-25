@@ -3,8 +3,6 @@ import { browserHistory } from 'react-router'
 
 import AdminHeader from '../layouts/AdminHeader.jsx'
 
-import '../pages/admin/admin.styl'
-
 class AdminAppContainer extends Component {
 	constructor(props){
 		super(props);

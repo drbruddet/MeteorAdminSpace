@@ -1,46 +1,56 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
-
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+ 
 export const Operations = new Mongo.Collection('operations');
 
-if (Meteor.isServer) {
-	Meteor.publish('operations', function operationsPublication() {
-		return Operations.find();
-	});
-}
-
-Meteor.methods({
-
-	'operations.insert'(name, description, amount, type, frequency) {
-		check(name, String);
-		check(description, String);
-		check(amount, Number);
-		check(type, String);
-		check(frequency, String);
-
-		try {
-			if (!this.userId)
-				throw new Meteor.Error('500', 'Must be logged in to add new Operation.');
-
-			Operations.insert({
-				name,
-				description,
-				amount,
-				type,
-				frequency,
-				createdAt: new Date(),
-				owner: this.userId
-			}); 
-		} catch (exception) {
-			throw new Meteor.Error('500', exception.message);
-		}
-	},
-
-	'operations.remove'(operationId) {
-		check(operationId, String);
-
-		Operations.remove(operationId);
-	},
-
+Operations.allow({
+  insert() { return false; },
+  update() { return false; },
+  remove() { return false; }
 });
+
+Operations.deny({
+  insert() { return true; },
+  update() { return true; },
+  remove() { return true; }
+});
+
+var Schemas = {};
+
+Schemas.Operations = new SimpleSchema({
+    name: {
+        type: String,
+        label: "Operation Name",
+        max: 200
+    },
+    description: {
+        type: String,
+        label: "Operation Description",
+        max: 1500,
+        optional: true,
+    },
+    amount: {
+        type: Number,
+        label: "Operation Amount",
+        decimal: true,
+        optional: false,
+    },
+    type: {
+        type: String,
+        label: "Credit or Debit",
+        allowedValues: ["credit", "debit"],
+        defaultValue: "debit",
+    },
+    frequency: {
+        type: String,
+        label: "Daily, Weekly, Monthly, Yearly",
+        allowedValues: ["daily", "weekly", "monthly", "yearly"],
+        defaultValue: "monthly",
+    },
+    createdAt: {
+        type: Date,
+        label: "Creation Date"
+    },
+});
+Operations.attachSchema(Schemas.Operations);

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Label, Button, Glyphicon } from 'react-bootstrap';
+import { deleteOperation } from '../../../api/operations/methods.js'
 
 const propTypes = {
 	operation: PropTypes.object.isRequired,
@@ -8,21 +9,22 @@ const propTypes = {
 class Operation extends Component {
 
 	deleteThisOperation() {
-		Meteor.call("operations.remove", this.props.operation._id);
+		deleteOperation.call({ 
+			_id: this.props.operation._id,
+		}, (error) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else { }
+ 		});
 	}
 
 	stylizeFrequencyLabel(frequency) {
 		switch(frequency) {
-			case "daily":
-				return "success";
-			case "weekly":
-				return "warning"
-			case "monthly":
-				return "info";
-			case "yearly":
-				return "danger";
+			case "daily": return "success";
+			case "weekly": return "warning"
+			case "monthly": return "info";
+			case "yearly": return "danger";
 		}
-		return "grey";
 	}
 
 	render() {

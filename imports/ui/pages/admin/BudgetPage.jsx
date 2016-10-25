@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 
-import OperationSynthesis from '../../components/operations/operationSynthesis.jsx';
-import OperationForm from '../../components/operations/operationForm.jsx';
-import OperationList from '../../components/operations/operationList.jsx';
+import OperationSynthesis from '../../components/operations/OperationSynthesis.jsx';
+import OperationForm from '../../components/operations/OperationForm.jsx';
+import OperationList from '../../components/operations/OperationList.jsx';
 
 const propTypes = {
 	operationsDebit: PropTypes.array.isRequired,

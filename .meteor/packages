@@ -26,3 +26,5 @@ blaze-html-templates
 aldeed:collection2
 momentjs:moment
 session
+mdg:validated-method
+aldeed:simple-schema

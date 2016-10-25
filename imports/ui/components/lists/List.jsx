@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import { ListGroupItem, Glyphicon, Label, FormGroup, FormControl } from 'react-bootstrap'
+import { deleteList, updateList } from '../../../api/lists/methods.js'
 
 const propTypes = {
 	list: PropTypes.object.isRequired,
@@ -20,30 +21,39 @@ class List extends Component {
 		this.setState({ editing: this.props.list._id });
 	}
 
+	deleteThisList() {
+		deleteList.call({ 
+			_id: this.props.list._id,
+		}, (error) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else {
+ 				(this.props.selectedItemId === this.props.list._id) ? 
+ 					this.props.selectList("") : this.props.selectList(this.props.selectedItemId) 
+ 			}
+ 		});
+	}
+
 	handleEditList(event) {
 		if (event.keyCode === 13) {
 			const listId = this.state.editing;
 			const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
 
-			Meteor.call('lists.updateList', listId, name, (error, response) => {
-				if (!error) {
-					this.setState({ editing: null });
-        		} else {
-        			// Message Task Updated
-        		}
-			});
+			updateList.call({ 
+				_id: listId,
+				update: {
+					name,
+				},
+			}, (error) => {
+ 				if (error) {
+ 					console.log(error);
+ 				} else {
+ 					this.setState({ editing: null });
+ 				}
+ 			});
 		} else if (event.keyCode === 27) {
 			this.setState({ editing: null });
 		}
-	}
-
-	deleteThisList() {
-		Meteor.call('lists.remove', this.props.list._id, (err) => {
- 			if (!err) {
- 				(this.props.selectedItemId === this.props.list._id) ? 
- 					this.props.selectList("") : this.props.selectList(this.props.selectedItemId) 
- 			}	
- 		});
 	}
 
 	render() {

@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import { Form, FormGroup, FormControl, InputGroup, Button } from 'react-bootstrap';
-
-import { Operations } from '../../../api/operations/operations.js';
+import { insertOperation } from '../../../api/operations/methods.js'
 
 class OperationForm extends Component {
 
@@ -16,17 +15,24 @@ class OperationForm extends Component {
 		const type = ReactDOM.findDOMNode(this.refs.typeInput).value.trim();
 		const frequency = ReactDOM.findDOMNode(this.refs.frequencyInput).value.trim();
  
-		Meteor.call("operations.insert", name, description, amount, type, frequency, (err) => {
- 			if (err) {
- 				console.log("error");
- 			}	
+ 		 insertOperation.call({ 
+ 			name: name,
+ 			description: description,
+ 			amount: amount,
+ 			type: type,
+ 			frequency: frequency,
+ 			createdAt: new Date(),
+ 		}, (error) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else {
+				ReactDOM.findDOMNode(this.refs.nameInput).value = "";
+				ReactDOM.findDOMNode(this.refs.descriptionInput).value = "";
+				ReactDOM.findDOMNode(this.refs.amountInput).value = "";
+				ReactDOM.findDOMNode(this.refs.frequencyInput).value = "";
+				ReactDOM.findDOMNode(this.refs.typeInput).value = "";
+ 			}
  		});
- 
-		ReactDOM.findDOMNode(this.refs.nameInput).value = "";
-		ReactDOM.findDOMNode(this.refs.descriptionInput).value = "";
-		ReactDOM.findDOMNode(this.refs.amountInput).value = "";
-		ReactDOM.findDOMNode(this.refs.frequencyInput).value = "";
-		ReactDOM.findDOMNode(this.refs.typeInput).value = "";
 	}
 
 	render() {

@@ -3,8 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import { Checkbox, ButtonGroup, Button, Glyphicon, Label, 
 		OverlayTrigger, Popover, FormGroup, FormControl } from 'react-bootstrap'
-
-import './Task.styl'
+import { setChecked, deleteTask, updateTask } from '../../../api/tasks/methods.js'
 
 const propTypes = {
 	task: PropTypes.object.isRequired,
@@ -35,26 +34,45 @@ class Task extends Component {
 	}
 
 	toggleChecked() {
-		// Set the checked property to the opposite of its current value
-		Meteor.call('tasks.setChecked', this.props.task._id, !this.props.task.checked);
+		setChecked.call({ 
+			_id: this.props.task._id, 
+			setChecked: !this.props.task.checked,
+		}, (error) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else { }
+ 		});
+
 	}
 
 	deleteThisTask() {
-		Meteor.call('tasks.remove', this.props.task._id);
+		deleteTask.call({ 
+			_id: this.props.task._id,
+		}, (error) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else { }
+ 		});
 	}
 
 	handleEditItem() {
 		const taskId = this.state.editing;
-		const updatedText = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 		const priority = ReactDOM.findDOMNode(this.refs.priorityInput).value.trim();
 
-		Meteor.call('tasks.updateTask', taskId, updatedText, priority, (error, response) => {
-			if (!error) {
-				this.setState({ editing: null });
-        	} else {
-        		// Message Task Updated
-        	}
-		});
+		updateTask.call({ 
+			_id: taskId,
+			update: {
+				text,
+				priority,
+			},
+		}, (error, response) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else {
+ 				this.setState({ editing: null });
+ 			}
+ 		});
 	}
 
 	render() {
@@ -114,7 +132,7 @@ class Task extends Component {
 					<td className="vert-align">
 						{this.props.task.text}
 					</td>
-					<td className="vert-align col-sm-2 col-md-2 col-lg-2 text-right">
+					<td className="vert-align col-sm-1 col-md-2 col-lg-2 text-right">
 						<ButtonGroup>
 							<Button className="btn-sm">
 	    						<OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus}>

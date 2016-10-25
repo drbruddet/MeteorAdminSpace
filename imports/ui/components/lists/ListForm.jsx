@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Form, FormGroup, FormControl } from 'react-bootstrap'
+import { insertList } from '../../../api/lists/methods.js'
 
 class ListForm extends Component {
 
@@ -9,12 +10,18 @@ class ListForm extends Component {
 		event.preventDefault();
  
  		const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
- 		Meteor.call('lists.insert', name, (err, listId) => {
- 			if (!err) {
- 				this.props.selectList(listId);
- 			}	
+
+ 		insertList.call({ 
+ 			name: name, 
+ 			createdAt: new Date(),
+ 		}, (error, _id) => {
+ 			if (error) {
+ 				console.log(error);
+ 			} else {
+ 				this.props.selectList(_id);
+ 				ReactDOM.findDOMNode(this.refs.nameInput).value = '';
+ 			}
  		});
-		ReactDOM.findDOMNode(this.refs.nameInput).value = '';
 	}
 
 	render() {

@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react'
-import { browserHistory, Link } from 'react-router'
+import React, { Component } from 'react'
 
 class NotFoundPage extends Component {
 

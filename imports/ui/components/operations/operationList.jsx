@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Table } from 'react-bootstrap';
 
-import Operation from './operation.jsx';
+import Operation from './Operation.jsx';
 
 const propTypes = {
 	operationsDebit: PropTypes.array.isRequired,
