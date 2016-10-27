@@ -59,20 +59,21 @@ class Task extends Component {
 		const taskId = this.state.editing;
 		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 		const priority = ReactDOM.findDOMNode(this.refs.priorityInput).value.trim();
-
-		updateTask.call({ 
-			_id: taskId,
-			update: {
-				text,
-				priority,
-			},
-		}, (error, response) => {
- 			if (error) {
- 				console.log(error);
- 			} else {
- 				this.setState({ editing: null });
- 			}
- 		});
+		if (text) {
+			updateTask.call({ 
+				_id: taskId,
+				update: {
+					text,
+					priority,
+				},
+			}, (error, response) => {
+ 				if (error) {
+ 					console.log(error);
+ 				} else {
+ 					this.setState({ editing: null });
+ 				}
+ 			});
+		}
 	}
 
 	render() {
@@ -93,23 +94,24 @@ class Task extends Component {
 								className="form-control input-group-lg reg_name col-xs-12 col-sm-10"
 								type="text"
 								ref="textInput"
-								defaultValue={this.props.task.text}
-							/>
+								defaultValue={this.props.task.text} />
 						</FormGroup>
 						<FormGroup className="form-group col-xs-9 col-sm-3 no-padding">
 							<FormControl 
 								componentClass="select"
 								className="form-control input-group-lg reg_name col-md-3"
 								defaultValue={this.props.task.priority}
-								ref="priorityInput">
+								ref="priorityInput" >
 								<option value="normal">Normal</option>
 								<option value="important">Important</option>
 								<option value="urgent">Urgent</option>
 							</FormControl>
 						</FormGroup>
 	            		<FormGroup className="form-group col-xs-3 col-sm-2 no-padding">
-            				<Button className="btn btn-primary form-control input-group-lg reg_name col-xs-12 col-sm-2" 
-            					onClick={() => this.handleEditItem()}>Update</Button>
+            				<Button 
+            					className="btn btn-primary form-control input-group-lg reg_name col-xs-12 col-sm-2" 
+            					onClick={() => this.handleEditItem()}> Update
+            				</Button>
             			</FormGroup>
             		</td>
         		</tr>
@@ -121,8 +123,7 @@ class Task extends Component {
 						<Checkbox
 							readOnly
 							checked={this.props.task.checked}
-							onClick={() => this.toggleChecked()}
-						/>
+							onClick={() => this.toggleChecked()} />
 					</td>
 					<td className="vert-align col-sm-1 col-md-1 col-lg-1">
 						<Label bsStyle={this.priorityLabel()}>

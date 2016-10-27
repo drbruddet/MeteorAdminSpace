@@ -9,6 +9,7 @@ import TaskForm from '../../components/tasks/TaskForm.jsx';
 const propTypes = {
 	tasks: PropTypes.array.isRequired,
 	listSelected: PropTypes.string.isRequired,
+	sorting: PropTypes.string.isRequired,
 }
 
 class TaskPanel extends Component {
@@ -22,11 +23,12 @@ class TaskPanel extends Component {
 		this.setState({ hideCompleted: !this.state.hideCompleted });
 	}
 
-	handleSelect(event) {
-    	console.log(event);
+	handleSelect(event, sorting) {
+		console.log(event);
+		console.log("toto: " + sorting);
     	switch(event) {
-			case 1: return Session.set("sort_order", {createdAt: -1 });
-			case 2: return Session.set("sort_order", {createdAt: 0 });
+			case 1: return this.props.sortTasks({ createdAt: -1 });
+			case 2: return this.props.sortTasks({ createdAt: 0 });
 			//case "Alpha": 		return Session.set("sort_order", {lowerText : 0 });
 			//case "Pending": 	return Session.set("sort_order", {checked: 0 });
 			//case "Finished": 	return Session.set("sort_order", {checked: -1 });
@@ -59,11 +61,15 @@ class TaskPanel extends Component {
 						readOnly
 						className="sortCheckbox col-xs-12 col-md-4 col-lg-5"
 						checked={this.state.hideCompleted}
-						onClick={() => this.toggleHideCompleted()}
-						> Hide Completed Tasks
+						onClick={() => this.toggleHideCompleted()} > Hide Completed Tasks
 					</Checkbox>
 					<div className="my-float-right">
-						<DropdownButton id={"sortTask-" + this.props.listSelected} bsSize="small" bsStyle="info" title="Sort Tasks" onSelect={this.handleSelect}>
+						<DropdownButton 
+							id={"sortTask-" + this.props.listSelected} 
+							bsSize="small" 
+							bsStyle="info" 
+							title="Sort Tasks"
+							onSelect={(event, sorting) => this.handleSelect(event, this.props.sorting)} >
 							<MenuItem eventKey="1">Created Date Asc</MenuItem>
 							<MenuItem eventKey="2">Created Date Desc</MenuItem>
 						</DropdownButton>

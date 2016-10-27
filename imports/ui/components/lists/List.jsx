@@ -66,8 +66,7 @@ class List extends Component {
 							type="text"
 							ref="nameInput"
 							defaultValue={this.props.list.name}
-							onKeyDown={(event) => this.handleEditList(event)}
-						/>
+							onKeyDown={(event) => this.handleEditList(event)} />
 					</FormGroup>
 				</ListGroupItem>
 			);
@@ -79,12 +78,10 @@ class List extends Component {
 					<Label bsStyle="info" className="pushRight label-counter">{this.props.countPendingTasks}</Label>
 					<Glyphicon className="pushRight red"
 						onClick={() => this.deleteThisList()}
-						glyph="glyphicon glyphicon-remove"
-					/>					
+						glyph="glyphicon glyphicon-remove" />					
 					<Glyphicon className="pushRight orange"
 						onClick={() => this.toggleEditing()}
-						glyph="glyphicon glyphicon-edit"
-					/>
+						glyph="glyphicon glyphicon-edit" />
 				</ListGroupItem>
 			);
 

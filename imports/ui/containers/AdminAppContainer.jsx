@@ -8,10 +8,18 @@ class AdminAppContainer extends Component {
 		super(props);
 		this.state = this.getMeteorData();
 		this.logout = this.logout.bind(this);
+		this.sortTasks = this.sortTasks.bind(this);
 	}
 
 	getMeteorData(){
-		return { isAuthenticated: Meteor.userId() !== null };
+		return { 
+			isAuthenticated: Meteor.userId() !== null, 
+			sorting: { createdAt: -1 },
+		};
+	}
+
+	sortTasks(sorting) {
+		this.setState({ sorting: sorting });
 	}
 
 	componentWillMount(){
@@ -28,15 +36,24 @@ class AdminAppContainer extends Component {
 
 	logout(e){
 		e.preventDefault();
+		console.log("tarte");
 		Meteor.logout();
 		browserHistory.push('/login');
 	}
-	
+
 	render(){
+		const childrenWithProps = React.Children.map(this.props.children, (child) => 
+			React.cloneElement(child, {
+				sorting: this.state.sorting,
+				sortTasks: this.sortTasks.bind(this),
+			})
+		);
 		return (
-			<div className="app-container">
+			<div>
 				<AdminHeader clickLogout={this.logout}/>
-				{this.props.children}
+				<div className="app-container">
+					{childrenWithProps}
+				</div>
 			</div>
 		);
 	}

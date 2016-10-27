@@ -15,24 +15,26 @@ class OperationForm extends Component {
 		const type = ReactDOM.findDOMNode(this.refs.typeInput).value.trim();
 		const frequency = ReactDOM.findDOMNode(this.refs.frequencyInput).value.trim();
  
- 		 insertOperation.call({ 
- 			name: name,
- 			description: description,
- 			amount: amount,
- 			type: type,
- 			frequency: frequency,
- 			createdAt: new Date(),
- 		}, (error) => {
- 			if (error) {
- 				console.log(error);
- 			} else {
-				ReactDOM.findDOMNode(this.refs.nameInput).value = "";
-				ReactDOM.findDOMNode(this.refs.descriptionInput).value = "";
-				ReactDOM.findDOMNode(this.refs.amountInput).value = "";
-				ReactDOM.findDOMNode(this.refs.frequencyInput).value = "";
-				ReactDOM.findDOMNode(this.refs.typeInput).value = "";
- 			}
- 		});
+ 		if (name) {
+ 			insertOperation.call({ 
+ 				name: name,
+ 				description: description,
+ 				amount: amount,
+ 				type: type,
+ 				frequency: frequency,
+ 				createdAt: new Date(),
+ 			}, (error) => {
+ 				if (error) {
+ 					console.log(error);
+ 				} else {
+					ReactDOM.findDOMNode(this.refs.nameInput).value = "";
+					ReactDOM.findDOMNode(this.refs.descriptionInput).value = "";
+					ReactDOM.findDOMNode(this.refs.amountInput).value = "";
+					ReactDOM.findDOMNode(this.refs.frequencyInput).value = "";
+					ReactDOM.findDOMNode(this.refs.typeInput).value = "";
+ 				}
+ 			});
+ 		}
 	}
 
 	render() {
@@ -45,23 +47,21 @@ class OperationForm extends Component {
 							className="form-control input-group-lg reg_name col-md-7"
 							type="text"
 							ref="nameInput"
-							placeholder="Name"
-						/>
+							placeholder="Name" />
 					</FormGroup>
 					<FormGroup className="form-group col-xs-4 col-md-2 no-padding">
 						<FormControl
 							className="form-control input-group-lg reg_name col-md-7"
 							type="text"
 							ref="amountInput"
-							placeholder="Amount"
-						/>
+							placeholder="Amount" />
 					</FormGroup>
 					<FormGroup className="form-group col-xs-4 col-md-1 no-padding">
 						<FormControl 
 							componentClass="select"
 							className="form-control input-group-lg reg_name col-md-1"
 							placeholder="select"
-							ref="frequencyInput">
+							ref="frequencyInput" >
 							<option value="">Frequency</option>
 							<option value="daily">Daily</option>
 							<option value="weekly">Weekly</option>
@@ -74,7 +74,7 @@ class OperationForm extends Component {
 							componentClass="select"
 							className="form-control input-group-lg reg_name col-md-1"
 							placeholder="select"
-							ref="typeInput">
+							ref="typeInput" >
 							<option value="">Type</option>
 							<option value="debit">Debit</option>
 							<option value="credit">Credit</option>
@@ -87,8 +87,7 @@ class OperationForm extends Component {
 							className="form-control input-group-lg reg_name col-md-10"
 							type="text"
 							ref="descriptionInput"
-							placeholder="Description"
-						/>
+							placeholder="Description" />
 					</FormGroup>
 					<FormGroup className="form-group col-xs-4 col-md-2 no-padding">
 						<Button bsStyle="primary" className="form-control input-group-lg reg_name col-md-2" type="submit">New Operation</Button>

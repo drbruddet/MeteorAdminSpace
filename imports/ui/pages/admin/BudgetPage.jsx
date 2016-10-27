@@ -34,8 +34,7 @@ class BudgetPage extends Component {
 				<OperationSynthesis 
 					{...this.props}
 					calculDebitTotalAmount={this.calculTotalOperationsAmount("debit")}
-					calculCreditTotalAmount={this.calculTotalOperationsAmount("credit")}
-				/>
+					calculCreditTotalAmount={this.calculTotalOperationsAmount("credit")} />
 				<div className="clearfix"></div>
 				<OperationForm />
 				<OperationList {...this.props} />

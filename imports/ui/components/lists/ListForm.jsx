@@ -11,17 +11,19 @@ class ListForm extends Component {
  
  		const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
 
- 		insertList.call({ 
- 			name: name, 
- 			createdAt: new Date(),
- 		}, (error, _id) => {
- 			if (error) {
- 				console.log(error);
- 			} else {
- 				this.props.selectList(_id);
- 				ReactDOM.findDOMNode(this.refs.nameInput).value = '';
- 			}
- 		});
+ 		if (name) {
+ 			insertList.call({ 
+ 				name: name, 
+ 				createdAt: new Date(),
+ 			}, (error, _id) => {
+ 				if (error) {
+ 					console.log(error);
+ 				} else {
+ 					this.props.selectList(_id);
+ 					ReactDOM.findDOMNode(this.refs.nameInput).value = '';
+ 				}
+ 			});
+ 		}
 	}
 
 	render() {
@@ -31,8 +33,7 @@ class ListForm extends Component {
 					<FormControl
 						type="text"
 						ref="nameInput"
-						placeholder="Add New List"
-					/>
+						placeholder="Add New List" />
 				</FormGroup>
 			</Form>
 		);

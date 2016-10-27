@@ -10,6 +10,7 @@ const propTypes = {
 	lists: PropTypes.array.isRequired,
 	tasks: PropTypes.array.isRequired,
 	incompleteCount: PropTypes.number.isRequired,
+	sorting: PropTypes.string.isRequired,
 }
 
 class TodosPage extends Component {
@@ -26,6 +27,16 @@ class TodosPage extends Component {
 	}
 
 	render() {
+		const selectedPanel = this.state.listSelected ? 
+			<TaskPanel 
+				tasks = {this.props.tasks} 
+				listSelected = {this.state.listSelected} 
+				sorting = {this.props.sorting} 
+				sortTasks = {this.props.sortTasks} /> :
+			<Col xs={12} md={9} lg={9}> 
+				<Panel header="Tips?" bsStyle="info"> Please Select a list .. </Panel>
+			</Col>
+
 		return (
 			<div className="container">
 				<PageHeader>Todo List
@@ -38,27 +49,8 @@ class TodosPage extends Component {
 					listSelected = {this.state.listSelected} 
 					selectList = {this.selectList} 
 					lists = {this.props.lists} 
-					tasks = {this.props.tasks}
-				/>
-
-				{(() => {
-					if (this.state.listSelected) {
-						return (
-							<TaskPanel 
-								tasks = {this.props.tasks} 
-								listSelected = {this.state.listSelected} 
-							/>
-						);
-					} else {
-						return (
-							<Col xs={12} md={9} lg={9}>
-								<Panel header="Tips?" bsStyle="info">
-									Please Select a list ..
-								</Panel>
-							</Col>
-						);
-					}
-				})()}
+					tasks = {this.props.tasks} />
+				{selectedPanel}
 			</div>
 		);
 	}
