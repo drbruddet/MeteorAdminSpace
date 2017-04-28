@@ -22,7 +22,7 @@ class AdminAppContainer extends Component {
 		this.setState({ sorting: sorting });
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 		if (!this.state.isAuthenticated) {
 			browserHistory.push('/login');
 		}
